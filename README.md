@@ -47,6 +47,30 @@ openssl req -x509 -nodes -newkey ec \
 
 > Note: the curve we use is `prime256v1` which is different from the one recommended in their README (`secp521r1`), which is incompatible and unsupported by most tools/browsers. [Another issue was raised for that](https://github.com/teslamotors/vehicle-command/issues/398).
 
+## Run it!
+
+I am using Podman rootless but feel free to use Docker, or anything compose-spec-compliant!
+```bash
+tool=podman
+# or
+#tool=docker
+```
+
+**Start:**
+```bash
+$tool compose up -d --build
+```
+
+**Stop:**
+```bash
+$tool compose down
+```
+
+**View the logs:**
+```bash
+$tool compose logs -f
+```
+
 ## Usage
 
 - GET `/share`
