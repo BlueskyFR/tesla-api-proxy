@@ -1,0 +1,28 @@
+services:
+  tesla-api-proxy:
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - 4010:80
+    volumes:
+      - ./credentials.json:/app/credentials.json
+  
+  vehicle-command-proxy:
+    image: tesla/vehicle-command:latest
+    ports:
+      - 4443:443
+    environment:
+      TESLA_HTTP_PROXY_TLS_CERT: /config/tls-cert.pem
+      TESLA_HTTP_PROXY_TLS_KEY: /config/tls-key.pem
+      # TESLA_HTTP_PROXY_TLS_CERT: /config/tls-cert.pem
+      # TESLA_HTTP_PROXY_TLS_KEY: /config/tls-key.pem
+      TESLA_HTTP_PROXY_HOST: 0.0.0.0
+      TESLA_HTTP_PROXY_PORT: 443
+      TESLA_HTTP_PROXY_TIMEOUT: 10s
+      TESLA_KEY_FILE: /private-key.pem
+      TESLA_VERBOSE: true
+    volumes:
+      - ./config:/config
+      - ./keys/https/private-key.pem:/private-key.pem:ro
+    user: root
