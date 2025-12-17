@@ -28,8 +28,7 @@ const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const app = new Hono();
 // REST api, direct access
 const api = ky.create({
-  prefixUrl:
-    `https://fleet-api.prd.eu.vn.cloud.tesla.com/api/1/vehicles/${credentials.VIN}`,
+  prefixUrl: `https://fleet-api.prd.eu.vn.cloud.tesla.com/api/1/vehicles/${credentials.VIN}`,
   headers: {
     "Content-Type": "application/json; charset=utf-8",
   },
