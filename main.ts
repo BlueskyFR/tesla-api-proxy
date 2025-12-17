@@ -169,6 +169,7 @@ app
       } catch (e: unknown) {
         if (e instanceof HTTPError && e.name === "HTTPError") {
           const error = await e.response.json();
+          console.error(`Error sharing url ${params.content}: ${error.error_description}`);
           return c.json({ success: false, error: error.error_description });
         }
         console.error(e);
